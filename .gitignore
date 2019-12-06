@@ -11,3 +11,5 @@
 .project
 # omit Go vendor directories
 vendor/
+# Visual studio code
+.vscode/
