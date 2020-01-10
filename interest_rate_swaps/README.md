@@ -138,11 +138,10 @@ commands in the following section.
 
 ### Transactions
 
-The chaincode is initialized as follows:
+The chaincode is instantiated as follows:
 ```
-peer chaincode invoke -o irs-orderer:7050 --isInit -C irs --waitForEvent -n irscc --peerAddresses irs-rrprovider:7051 --peerAddresses irs-partya:7051 --peerAddresses irs-partyb:7051 --peerAddresses irs-partyc:7051 --peerAddresses irs-auditor:7051 -c '{"Args":["init","auditor","1000000","rrprovider","myrr"]}'
+peer chaincode instantiate -o irs-orderer:7050 -C irs -n irscc -l golang -v 0 -c '{"Args":["init","auditor","1000000","rrprovider","myrr"]}' -P "AND(OR('partya.peer','partyb.peer','partyc.peer'), 'auditor.peer')"
 ```
-
 This sets an auditing threshold of 1M, above which the `auditor` organization
 needs to be involved. It also specifies the `myrr` reference rate provided by
 the `rrprovider` organization.
