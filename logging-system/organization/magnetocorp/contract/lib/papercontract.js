@@ -153,6 +153,31 @@ class CommercialPaperContract extends Contract {
         return paper;
     }
 
+    /**
+     * Check contract information
+     *
+     * @param {Context} ctx the transaction context
+     * @param {String} issuer commercial paper issuer
+     * @param {Integer} paperNumber paper number for this issuer
+     * @param {String} checker who is checking the data
+    */
+   async checkContract(ctx, issuer, paperNumber, checker) {
+
+    // Retrieve the current paper using key fields provided
+    let paperKey = CommercialPaper.makeKey([issuer, paperNumber]);
+    let paper = await ctx.paperList.getPaper(paperKey);
+
+    //TODO: somehow (NOT LIKE THIS)Validate if it is the employer
+    // if (paper.getIssuer() !== checker) {
+    //     throw new Error('Paper ' + issuer + paperNumber + '\n' + checker+' is not the issuer ');
+    // }
+
+    // Update the paper
+    //TODO: here we should log that he/she has accessed
+    // await ctx.paperList.updatePaper(paper);
+    return paper;
+}
+
 }
 
 module.exports = CommercialPaperContract;
