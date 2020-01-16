@@ -33,13 +33,6 @@ echo "
 
  To add identity to the wallet:   node addToWallet.js
  To issue the paper           :   node issue.js
-
- Java Client Applications:
-
- (remember to build the Java first with 'mvn')
-
- To add identity to the wallet:   java addToWallet
- To issue the paper           :   java issue
 "
 
 echo "Suggest that you change to this dir>  cd ${DIR}/organization/magnetocorp/"

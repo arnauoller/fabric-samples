@@ -17,20 +17,12 @@ echo "
 
  Install and Instantiate a Smart Contract as 'Magnetocorp'
 
- 
+
  Run Applications in either langauage (can be different from the Smart Contract)
 
  JavaScript Client Aplications:
 
  To add identity to the wallet:   node addToWallet.js
-    < issue the paper run as Magnetocorp>
- To buy the paper             :   node buy.js
- To redeem the paper          :   node redeem.js
-
- Java Client Applications:
-
- (remember to build the Java first with 'mvn clean package')
-
     < issue the paper run as Magnetocorp>
  To buy the paper             :   node buy.js
  To redeem the paper          :   node redeem.js
