@@ -96,6 +96,8 @@ let Chaincode = class {
     }
 
     // ==== Create marble object and marshal to JSON ====
+
+    //TODO: maybe would be better to do it like this
     let marble = {};
     marble.docType = 'marble';
     marble.name = marbleName;

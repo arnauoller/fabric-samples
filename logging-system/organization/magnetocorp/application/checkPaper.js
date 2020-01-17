@@ -63,6 +63,7 @@ async function main () {
         console.log(`Issue date: ${paper.issueDateTime}\n Salary: ${paper.salary}`)
         console.log(`Age: ${paper.age}\n Sex: ${paper.sex}`)
 
+        console.log(`Paper log: \n ${paper.log}`);
         console.log('Transaction complete.');
 
     } catch (error) {

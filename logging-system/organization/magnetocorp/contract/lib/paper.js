@@ -90,8 +90,8 @@ class CommercialPaper extends State {
     /**
      * Factory method to create a commercial paper object
      */
-    static createInstance(issuer, paperNumber, issueDateTime, maturityDateTime, salary, age, sex) {
-        return new CommercialPaper({ issuer, paperNumber, issueDateTime, maturityDateTime, salary, age, sex });
+    static createInstance(issuer, paperNumber, issueDateTime, maturityDateTime, salary, age, sex, log) {
+        return new CommercialPaper({ issuer, paperNumber, issueDateTime, maturityDateTime, salary, age, sex, log });
     }
 
     static getClass() {

@@ -53,13 +53,14 @@ class StateList {
     /**
      * Update a state in the list. Puts the new state in world state with
      * appropriate composite key.  Note that state defines its own key.
-     * A state is serialized before writing. Logic is very similar to
-     * addState() but kept separate because it is semantically distinct.
+     * A state is serialized before writing. Logic is similar to
+     * addState() but returns the "paper"
      */
     async updateState(state) {
         let key = this.ctx.stub.createCompositeKey(this.name, state.getSplitKey());
         let data = State.serialize(state);
         await this.ctx.stub.putState(key, data);
+        return state
     }
 
     /** Stores the class for future deserialization */

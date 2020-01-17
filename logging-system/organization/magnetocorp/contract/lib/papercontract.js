@@ -66,8 +66,10 @@ class CommercialPaperContract extends Contract {
     */
     async issue(ctx, issuer, paperNumber, issueDateTime, maturityDateTime, salary, age, sex ) {
 
+        var logMessage = "issued by" + issuer + "at time:" + issueDateTime;
+        var log = [logMessage];
         // create an instance of the paper
-        let paper = CommercialPaper.createInstance(issuer, paperNumber, issueDateTime, maturityDateTime, salary, age, sex);
+        let paper = CommercialPaper.createInstance(issuer, paperNumber, issueDateTime, maturityDateTime, salary, age, sex, log);
 
         // Smart contract, rather than paper, moves paper into ISSUED state
         paper.setIssued();
@@ -163,19 +165,25 @@ class CommercialPaperContract extends Contract {
     */
    async checkContract(ctx, issuer, paperNumber, checker) {
 
-    // Retrieve the current paper using key fields provided
-    let paperKey = CommercialPaper.makeKey([issuer, paperNumber]);
-    let paper = await ctx.paperList.getPaper(paperKey);
-
-    //TODO: somehow (NOT LIKE THIS)Validate if it is the employer
+    //TODO: (come as argument)put the time at which it has been check
+    //TODO: (come as argument)put the (optinal) message saying why it has been checked
+    //TODO: validate he/she can have acces to the info
+    // similar to :
     // if (paper.getIssuer() !== checker) {
     //     throw new Error('Paper ' + issuer + paperNumber + '\n' + checker+' is not the issuer ');
     // }
 
-    // Update the paper
-    //TODO: here we should log that he/she has accessed
-    // await ctx.paperList.updatePaper(paper);
-    return paper;
+    // Retrieve the current paper using key fields provided
+    let paperKey = CommercialPaper.makeKey([issuer, paperNumber]);
+    let paper = await ctx.paperList.getPaper(paperKey);
+
+    // Add new log line to the contract
+    paper.log = paper.log + "\n Checked by:" + checker;
+    let updatedPaper = await ctx.paperList.updatePaper(paper);
+
+    // // Retrive 
+    // let newPaper = await ctx.paperList.getPaper(paper);
+    return updatedPaper;
 }
 
 }
