@@ -36,18 +36,19 @@ async function main () {
 
         await gateway.connect(connectionProfile, connectionOptions);
 
-        // Access PaperNet network
+        // Access logging network
         console.log('Use network channel: mychannel.');
 
         const network = await gateway.getNetwork('mychannel');
 
+        //TODO: change this
         // Get addressability to commercial paper contract
         console.log('Use org.papernet.commercialpaper smart contract.');
 
         const contract = await network.getContract('papercontract');
 
         // Check commercial paper
-        console.log('Submit commercial paper check transaction.');
+        console.log('Submit check transaction.');
         const checkResponse = await contract.submitTransaction('checkContract', 'MagnetoCorp', '00001', userName);
 
         // process response

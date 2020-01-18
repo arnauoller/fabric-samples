@@ -1,31 +1,16 @@
-/*
-SPDX-License-Identifier: Apache-2.0
-*/
-
-/*
- * This application has 6 basic steps:
- * 1. Select an identity from a wallet
- * 2. Connect to network gateway
- * 3. Access PaperNet network
- * 4. Construct request to issue commercial paper
- * 5. Submit transaction
- * 6. Process response
- */
-
 'use strict';
 
 // Bring key classes into scope, most importantly Fabric SDK network class
 const fs = require('fs');
 const yaml = require('js-yaml');
 const { FileSystemWallet, Gateway } = require('fabric-network');
-const CommercialPaper = require('../contract/lib/paper.js');
+const CommercialPaper = require('../../magnetocorp/contract/lib/paper.js');
 
 // A wallet stores a collection of identities for use
-//const wallet = new FileSystemWallet('../user/isabella/wallet');
-const wallet = new FileSystemWallet('../identity/user/isabella/wallet');
+const wallet = new FileSystemWallet('../identity/user/balaji/wallet');
 
 // Main program function
-async function main() {
+async function main () {
 
     // A gateway defines the peers used to access Fabric networks
     const gateway = new Gateway();
@@ -34,8 +19,7 @@ async function main() {
     try {
 
         // Specify userName for network access
-        // const userName = 'isabella.issuer@magnetocorp.com';
-        const userName = 'User1@org1.example.com';
+        const userName = 'Admin@org1.example.com';
 
         // Load connection profile; will be used to locate a gateway
         let connectionProfile = yaml.safeLoad(fs.readFileSync('../gateway/networkConnection.yaml', 'utf8'));
@@ -44,7 +28,7 @@ async function main() {
         let connectionOptions = {
             identity: userName,
             wallet: wallet,
-            discovery: { enabled:false, asLocalhost: true }
+            discovery: { enabled: false, asLocalhost: true }
         };
 
         // Connect to gateway using application specified parameters
@@ -52,32 +36,33 @@ async function main() {
 
         await gateway.connect(connectionProfile, connectionOptions);
 
-        // Access PaperNet network
+        // Access logging network
         console.log('Use network channel: mychannel.');
 
         const network = await gateway.getNetwork('mychannel');
 
+        // TODO: change this
         // Get addressability to commercial paper contract
         console.log('Use org.papernet.commercialpaper smart contract.');
 
         const contract = await network.getContract('papercontract');
 
-        // issue commercial paper
-        console.log('Submit commercial paper issue transaction.');
-
-        const issueResponse = await contract.submitTransaction('issue', 'MagnetoCorp', '00001', '2020-05-31', '2020-11-30', '2500', '32', 'Male');
+        // Check commercial paper
+        console.log('Submit check transaction.');
+        const checkResponse = await contract.submitTransaction('checkContract', 'MagnetoCorp', '00001', userName);
 
         // process response
-        console.log('Process issue transaction response.\n'+issueResponse+"\n");
+        console.log('Process check transaction response.\n');
 
-        let paper = CommercialPaper.fromBuffer(issueResponse);
+        let paper = CommercialPaper.fromBuffer(checkResponse);
 
-        //console.log(`${paper.issuer} commercial paper : ${paper.paperNumber} successfully issued for value ${paper.caraValor}`);
-        // TODO: change job offer for contract in real code, to not mess with the meanings of contract in this sample context
-        console.log(`${paper.issuer} employer job offer succesfully issued \n`);
+        //TODO: should print this a bit more beautiful
+        console.log(`Paper number:${paper.paperNumber} information:\n`);
+        console.log(`Issuer: ${paper.issuer}\n paper number: ${paper.paperNumber}`);
+        console.log(`Issue date: ${paper.issueDateTime}\n Salary: ${paper.salary}`)
+        console.log(`Age: ${paper.age}\n Sex: ${paper.sex}`)
 
-        console.log(`Salary:${paper.salary} \nAge:${paper.age}\nSex:${paper.sex}\n\n`);
-
+        console.log(`Paper log: \n ${paper.log}`);
         console.log('Transaction complete.');
 
     } catch (error) {
@@ -95,11 +80,11 @@ async function main() {
 }
 main().then(() => {
 
-    console.log('Issue program complete.');
+    console.log('CheckContract program complete.');
 
 }).catch((e) => {
 
-    console.log('Issue program exception.');
+    console.log('CheckContract program exception.');
     console.log(e);
     console.log(e.stack);
     process.exit(-1);
