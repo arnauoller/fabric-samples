@@ -162,8 +162,9 @@ class CommercialPaperContract extends Contract {
      * @param {String} issuer commercial paper issuer
      * @param {Integer} paperNumber paper number for this issuer
      * @param {String} checker who is checking the data
+     * @param {String} message message stating why he/she checked info
     */
-   async checkContract(ctx, issuer, paperNumber, checker) {
+   async checkContract(ctx, issuer, paperNumber, checker, message) {
 
     //TODO: (come as argument)put the time at which it has been check
     //TODO: (come as argument)put the (optinal) message saying why it has been checked
@@ -178,7 +179,7 @@ class CommercialPaperContract extends Contract {
     let paper = await ctx.paperList.getPaper(paperKey);
 
     // Add new log line to the contract
-    paper.log = paper.log + "\n Checked by:" + checker;
+    paper.log = paper.log + "\n Checked by " + checker + ": " + message;
     let updatedPaper = await ctx.paperList.updatePaper(paper);
 
     // // Retrive 

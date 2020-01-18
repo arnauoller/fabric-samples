@@ -8,10 +8,8 @@ const CommercialPaper = require('../../magnetocorp/contract/lib/paper.js');
 
 // A wallet stores a collection of identities for use
 const wallet = new FileSystemWallet('../identity/user/balaji/wallet');
-
 // Main program function
 async function main () {
-
     // A gateway defines the peers used to access Fabric networks
     const gateway = new Gateway();
 
@@ -41,15 +39,20 @@ async function main () {
 
         const network = await gateway.getNetwork('mychannel');
 
-        // TODO: change this
+        // TODO: change this 2 lines
         // Get addressability to commercial paper contract
         console.log('Use org.papernet.commercialpaper smart contract.');
 
         const contract = await network.getContract('papercontract');
 
         // Check commercial paper
+        let message = '';
+        let args = process.argv.slice(2);
+        if(args[0]){
+            message = args[0];
+        }
         console.log('Submit check transaction.');
-        const checkResponse = await contract.submitTransaction('checkContract', 'MagnetoCorp', '00001', userName);
+        const checkResponse = await contract.submitTransaction('checkContract', 'MagnetoCorp', '00001', userName, message);
 
         // process response
         console.log('Process check transaction response.\n');
