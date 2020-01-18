@@ -85,17 +85,17 @@ class CommercialPaperContract extends Contract {
     }
 
     /**
-     * Buy commercial paper
+     * Accept contract from the side of employee
      *
      * @param {Context} ctx the transaction context
-     * @param {String} issuer commercial paper issuer
+     * @param {String} issuer contract issuer
      * @param {Integer} paperNumber paper number for this issuer
      * @param {String} currentOwner current owner of paper
      * @param {String} newOwner new owner of paper
      * @param {Integer} price price paid for this paper
      * @param {String} purchaseDateTime time paper was purchased (i.e. traded)
     */
-    async buy(ctx, issuer, paperNumber, currentOwner, newOwner, price, purchaseDateTime) {
+    async acceptContract(ctx, issuer, paperNumber, currentOwner, newOwner, price, purchaseDateTime) {
 
         // Retrieve the current paper using key fields provided
         let paperKey = CommercialPaper.makeKey([issuer, paperNumber]);
@@ -106,7 +106,7 @@ class CommercialPaperContract extends Contract {
             throw new Error('Paper ' + issuer + paperNumber + ' is not owned by ' + currentOwner);
         }
 
-        // First buy moves state from ISSUED to TRADING
+        // First acceptContract moves state from ISSUED to TRADING
         if (paper.isIssued()) {
             paper.setTrading();
         }

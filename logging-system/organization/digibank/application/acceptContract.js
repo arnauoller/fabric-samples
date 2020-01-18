@@ -7,7 +7,7 @@ SPDX-License-Identifier: Apache-2.0
  * 1. Select an identity from a wallet
  * 2. Connect to network gateway
  * 3. Access PaperNet network
- * 4. Construct request to issue commercial paper
+ * 4. Construct request to accept contract
  * 5. Submit transaction
  * 6. Process response
  */
@@ -62,17 +62,17 @@ async function main () {
 
         const contract = await network.getContract('papercontract', 'org.papernet.commercialpaper');
 
-        // buy commercial paper
-        console.log('Submit commercial paper buy transaction.');
+        // Accept contract
+        console.log('Submit accept contract transaction.');
 
-        const buyResponse = await contract.submitTransaction('buy', 'MagnetoCorp', '00001', 'MagnetoCorp', 'DigiBank', '4900000', '2020-05-31');
+        const acceptResponse = await contract.submitTransaction('acceptContract', 'MagnetoCorp', '00001', 'MagnetoCorp', 'DigiBank', '4900000', '2020-05-31');
 
         // process response
-        console.log('Process buy transaction response.');
+        console.log('Process accept contract transaction response.');
 
-        let paper = CommercialPaper.fromBuffer(buyResponse);
+        let paper = CommercialPaper.fromBuffer(acceptResponse);
 
-        console.log(`${paper.issuer} commercial paper : ${paper.paperNumber} successfully purchased by ${paper.owner}`);
+        console.log(`${paper.issuer} offered contract : ${paper.paperNumber} successfully accepted by ${paper.owner}`);
         console.log('Transaction complete.');
 
     } catch (error) {
@@ -90,11 +90,11 @@ async function main () {
 }
 main().then(() => {
 
-    console.log('Buy program complete.');
+    console.log('Accept program complete.');
 
 }).catch((e) => {
 
-    console.log('Buy program exception.');
+    console.log('Accept program exception.');
     console.log(e);
     console.log(e.stack);
     process.exit(-1);

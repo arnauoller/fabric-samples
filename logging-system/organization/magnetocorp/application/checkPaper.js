@@ -7,7 +7,6 @@ const { FileSystemWallet, Gateway } = require('fabric-network');
 const CommercialPaper = require('../contract/lib/paper.js');
 
 // A wallet stores a collection of identities for use
-//const wallet = new FileSystemWallet('../user/isabella/wallet');
 const wallet = new FileSystemWallet('../identity/user/isabella/wallet');
 
 // Main program function
@@ -20,7 +19,6 @@ async function main () {
     try {
 
         // Specify userName for network access
-        // const userName = 'isabella.issuer@magnetocorp.com';
         const userName = 'User1@org1.example.com';
 
         // Load connection profile; will be used to locate a gateway

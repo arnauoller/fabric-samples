@@ -2,10 +2,10 @@
   "name": "nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "buy.js",
+  "main": "acceptContract.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "rm -rf _idwallet && node addToWallet.js && node buy.js"
+    "test": "rm -rf _idwallet && node addToWallet.js && node acceptContract.js"
   },
   "keywords": [],
   "author": "",
