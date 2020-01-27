@@ -1,3 +1,36 @@
+# To do
+Employee:
+* terminateContract
+
+Both:
+* CheckContract: Check if requester has permission
+* Modify contract
+
+General:
+* User UNIX time
+* delete other samples and unused files
+
+Renaming:
+* Digibank to employee
+* Magnetocorp to employer
+* checkPaper to checkContract
+* all chain code references
+* Comments
+* naming of people and organisations inside the wallets
+
+# Done
+Employee:
+* Nothing
+
+Both:
+* checkContract: Message is required
+
+General:
+* Nothing
+
+Renaming:
+* Nothing
+
 # Commercial Paper Tutorial
 
 This folder contains the code for an introductory tutorial to Smart Contract development. It is based around the scenario of Commercial Paper.
@@ -73,23 +106,7 @@ docker exec cliMagnetoCorp peer chaincode install -n papercontract -v 0 -p /opt/
 docker exec cliMagnetoCorp peer chaincode instantiate -n papercontract -v 0 -l node -c '{"Args":["org.papernet.commercialpaper:instantiate"]}' -C mychannel -P "AND ('Org1MSP.member')"
 ```
 
-**For a Java Contract:**
-
-```
-docker exec cliMagnetoCorp peer chaincode install -n papercontract -v 0 -p /opt/gopath/src/github.com/contract-java -l java
-
-docker exec cliMagnetoCorp peer chaincode instantiate -n papercontract -v 0 -l java -c '{"Args":["org.papernet.commercialpaper:instantiate"]}' -C mychannel -P "AND ('Org1MSP.member')"
-```
- 
-> If you want to try both a Java and JavaScript Contract, then you will need to restart the infrastructure and deploy the other contract. 
-
 ## Client Applications
-
-Note for Java applications you will need to compile the Java Code using maven.  Use this command in each application-java directory
-
-```
-mvn clean package
-```
 
 Note for JavaScript applications you will need to install the dependencies first. Use this command in each application directory
 
@@ -109,16 +126,12 @@ This is running as *MagnetoCorp* so you can stay in the same window. These comma
 
 ```
 node addToWallet.js
-# or 
-java -cp target/commercial-paper-0.0.1-SNAPSHOT.jar org.magnetocorp.AddToWallet
 ```
 
 *Issue the Commercial Paper*
 
 ```
 node issue.js
-# or 
-java -cp target/commercial-paper-0.0.1-SNAPSHOT.jar org.magnetocorp.Issue
 ```
 
 ### Buy and Redeem the paper
@@ -135,22 +148,16 @@ You can now run the applications to buy and redeem the paper. Change to either t
 
 ```
 node addToWallet.js
-# or 
-java -cp target/commercial-paper-0.0.1-SNAPSHOT.jar org.digibank.AddToWallet
 ```
 
 *Buy the paper*
 
 ```
 node buy.js
-# or
-java -cp target/commercial-paper-0.0.1-SNAPSHOT.jar org.digibank.Buy
 ```
 
 *Redeem*
 
 ```
 node redeem.js
-# or 
-java -cp target/commercial-paper-0.0.1-SNAPSHOT.jar org.digibank.Redeem
 ```

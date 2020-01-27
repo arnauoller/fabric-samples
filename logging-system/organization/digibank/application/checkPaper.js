@@ -39,7 +39,7 @@ async function main () {
 
         const network = await gateway.getNetwork('mychannel');
 
-        // TODO: change this 2 lines
+        // TODO: change these 2 lines
         // Get addressability to commercial paper contract
         console.log('Use org.papernet.commercialpaper smart contract.');
 
@@ -50,6 +50,9 @@ async function main () {
         let args = process.argv.slice(2);
         if(args[0]){
             message = args[0];
+        } else {
+            console.log('No message was passed\nTerminating');
+            return;
         }
         console.log('Submit check transaction.');
         const checkResponse = await contract.submitTransaction('checkContract', 'MagnetoCorp', '00001', userName, message);
@@ -57,16 +60,19 @@ async function main () {
         // process response
         console.log('Process check transaction response.\n');
 
-        let paper = CommercialPaper.fromBuffer(checkResponse);
+        let receivedContract = CommercialPaper.fromBuffer(checkResponse);
 
-        //TODO: should print this a bit more beautiful
-        console.log(`Paper number:${paper.paperNumber} information:\n`);
-        console.log(`Issuer: ${paper.issuer}\n paper number: ${paper.paperNumber}`);
-        console.log(`Issue date: ${paper.issueDateTime}\n Salary: ${paper.salary}`)
-        console.log(`Age: ${paper.age}\n Sex: ${paper.sex}`)
+        console.log('====================');
 
-        console.log(`Paper log: \n ${paper.log}`);
-        console.log('Transaction complete.');
+        console.log(`Contract number:${receivedContract.paperNumber}`);
+        console.log(`Issuer: ${receivedContract.issuer}\n`);
+        console.log(`Issue date: ${receivedContract.issueDateTime}`);
+        console.log(`Employee salary: ${receivedContract.salary}`);
+        console.log(`Employee age: ${receivedContract.age}`);
+        console.log(`Employee sex: ${receivedContract.sex}`);
+        console.log(`Request log: \n\t${receivedContract.log}`);
+
+        console.log('====================');
 
     } catch (error) {
 
