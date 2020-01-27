@@ -1,5 +1,5 @@
 'use strict';
-//TODO: would be good to change name of this file (and the other with same name) for checkContract
+// TODO: would be good to change name of this file (and the other with same name) for checkContract
 // Bring key classes into scope, most importantly Fabric SDK network class
 const fs = require('fs');
 const yaml = require('js-yaml');
@@ -18,7 +18,7 @@ async function main () {
     try {
 
         // Specify userName for network access
-        const userName = 'User1@org1.example.com';
+        const userName = 'hr@org1.example.com';
 
         // Load connection profile; will be used to locate a gateway
         let connectionProfile = yaml.safeLoad(fs.readFileSync('../gateway/networkConnection.yaml', 'utf8'));
@@ -62,6 +62,12 @@ async function main () {
         console.log('Process check transaction response.\n');
 
         let receivedContract = CommercialPaper.fromBuffer(checkResponse);
+        if (!userName.startsWith('hr@')) {
+            if (receivedContract.owner !== userName) {
+                console.log('You are not HR or the owner, therefore you are not allowed to see the contract');
+                return;
+            }
+        }
 
         console.log('====================');
 

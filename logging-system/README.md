@@ -3,7 +3,6 @@ Employee:
 * terminateContract
 
 Both:
-* CheckContract: Check if requester has permission
 * Modify contract
 
 General:
@@ -24,6 +23,7 @@ Employee:
 
 Both:
 * checkContract: Message is required
+* CheckContract: Check if requester has permission
 
 General:
 * Nothing

@@ -66,8 +66,8 @@ class CommercialPaperContract extends Contract {
     */
     async issue(ctx, issuer, paperNumber, issueDateTime, maturityDateTime, salary, age, sex ) {
 
-        var logMessage = "issued by" + issuer + "at time:" + issueDateTime;
-        var log = [logMessage];
+        let logMessage = 'issued by' + issuer + 'at time:' + issueDateTime;
+        let log = [logMessage];
         // create an instance of the paper
         let paper = CommercialPaper.createInstance(issuer, paperNumber, issueDateTime, maturityDateTime, salary, age, sex, log);
 
@@ -164,7 +164,7 @@ class CommercialPaperContract extends Contract {
      * @param {String} checker who is checking the data
      * @param {String} message message stating why he/she checked info
     */
-   async checkContract(ctx, issuer, paperNumber, checker, message) {
+    async checkContract(ctx, issuer, paperNumber, checker, message) {
 
     //TODO: (come as argument)put the time at which it has been check
     //TODO: (come as argument)put the (optinal) message saying why it has been checked
@@ -175,17 +175,15 @@ class CommercialPaperContract extends Contract {
     // }
 
     // Retrieve the current paper using key fields provided
-    let paperKey = CommercialPaper.makeKey([issuer, paperNumber]);
-    let paper = await ctx.paperList.getPaper(paperKey);
+        let paperKey = CommercialPaper.makeKey([issuer, paperNumber]);
+        let paper = await ctx.paperList.getPaper(paperKey);
 
-    // Add new log line to the contract
-    paper.log = paper.log + "\n Checked by " + checker + ": " + message;
-    let updatedPaper = await ctx.paperList.updatePaper(paper);
+        // Add new log line to the contract
+        paper.log = paper.log + "\n Checked by " + checker + ": " + message;
 
-    // // Retrive 
-    // let newPaper = await ctx.paperList.getPaper(paper);
-    return updatedPaper;
-}
+        // let newPaper = await ctx.paperList.getPaper(paper);
+        return await ctx.paperList.updatePaper(paper);
+    }
 
 }
 
