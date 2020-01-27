@@ -1,6 +1,6 @@
 # To do
 Employee:
-* terminateContract
+* Nothing left?
 
 Both:
 * Modify contract
@@ -18,7 +18,7 @@ Renaming:
 
 # Done
 Employee:
-* Nothing
+* terminateContract
 
 Both:
 * checkContract: Message is required

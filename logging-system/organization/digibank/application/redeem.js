@@ -1,17 +1,3 @@
-/*
-SPDX-License-Identifier: Apache-2.0
-*/
-
-/*
- * This application has 6 basic steps:
- * 1. Select an identity from a wallet
- * 2. Connect to network gateway
- * 3. Access PaperNet network
- * 4. Construct request to issue commercial paper
- * 5. Submit transaction
- * 6. Process response
- */
-
 'use strict';
 
 // Bring key classes into scope, most importantly Fabric SDK network class
@@ -59,20 +45,29 @@ async function main() {
         // Get addressability to commercial paper contract
         console.log('Use org.papernet.commercialpaper smart contract.');
 
-        const contract = await network.getContract('papercontract', 'org.papernet.commercialpaper');
+        const contract = await network.getContract('papercontract');
 
         // redeem commercial paper
-        console.log('Submit commercial paper redeem transaction.');
+        console.log('Terminate contract');
 
-        const redeemResponse = await contract.submitTransaction('redeem', 'MagnetoCorp', '00001', 'DigiBank', '2020-11-30');
+        const redeemResponse = await contract.submitTransaction('redeem', 'MagnetoCorp', '00001', 'DigiBank');
 
         // process response
-        console.log('Process redeem transaction response.');
+        console.log('Process terminate contract response.');
 
-        let paper = CommercialPaper.fromBuffer(redeemResponse);
+        let receivedContract = CommercialPaper.fromBuffer(redeemResponse);
 
-        console.log(`${paper.issuer} commercial paper : ${paper.paperNumber} successfully redeemed with ${paper.owner}`);
-        console.log('Transaction complete.');
+        console.log('====================');
+
+        console.log(`Contract number:${receivedContract.paperNumber}`);
+        console.log(`Issuer: ${receivedContract.issuer}\n`);
+        console.log(`Issue date: ${receivedContract.issueDateTime}`);
+        console.log(`Employee salary: ${receivedContract.salary}`);
+        console.log(`Employee age: ${receivedContract.age}`);
+        console.log(`Employee sex: ${receivedContract.sex}`);
+        console.log(`Request log: \n\t${receivedContract.log}`);
+
+        console.log('====================');
 
     } catch (error) {
 

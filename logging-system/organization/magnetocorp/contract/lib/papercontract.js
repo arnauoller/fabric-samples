@@ -130,9 +130,15 @@ class CommercialPaperContract extends Contract {
      * @param {String} issuer commercial paper issuer
      * @param {Integer} paperNumber paper number for this issuer
      * @param {String} redeemingOwner redeeming owner of paper
-     * @param {String} redeemDateTime time paper was redeemed
     */
-    async redeem(ctx, issuer, paperNumber, redeemingOwner, redeemDateTime) {
+    async redeem(ctx, issuer, paperNumber, redeemingOwner) {
+        let now = new Date();
+        let month = now.getMonth() +1;
+
+        if (now.getMonth() < 10) {
+            month = '0' + month;
+        }
+        let redeemDateTime = now.getFullYear() + '-' + month + '-' + now.getDate() + ' ' + now.getHours() + ':' + now.getMinutes();
 
         let paperKey = CommercialPaper.makeKey([issuer, paperNumber]);
 
@@ -140,15 +146,16 @@ class CommercialPaperContract extends Contract {
 
         // Check paper is not REDEEMED
         if (paper.isRedeemed()) {
-            throw new Error('Paper ' + issuer + paperNumber + ' already redeemed');
+            throw new Error('contract ' + issuer + paperNumber + ' already terminated');
         }
 
         // Verify that the redeemer owns the commercial paper before redeeming it
         if (paper.getOwner() === redeemingOwner) {
             paper.setOwner(paper.getIssuer());
             paper.setRedeemed();
+            paper.log = paper.log + '\nTerminated contract at ' + redeemDateTime;
         } else {
-            throw new Error('Redeeming owner does not own paper' + issuer + paperNumber);
+            throw new Error('Terminating owner does not own contract ' + issuer + paperNumber);
         }
 
         await ctx.paperList.updatePaper(paper);
