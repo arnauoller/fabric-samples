@@ -161,25 +161,23 @@ class CommercialPaperContract extends Contract {
      * @param {Context} ctx the transaction context
      * @param {String} issuer commercial paper issuer
      * @param {Integer} paperNumber paper number for this issuer
-     * @param {String} checker who is checking the data
+     * @param {String} caller who is checking the data
      * @param {String} message message stating why he/she checked info
     */
-    async checkContract(ctx, issuer, paperNumber, checker, message) {
+    async checkContract(ctx, issuer, paperNumber, caller, message) {
+        if (message === '') {
+            throw new Error('No message was passed. Terminating');
+        }
 
-    //TODO: (come as argument)put the time at which it has been check
-    //TODO: (come as argument)put the (optinal) message saying why it has been checked
-    //TODO: validate he/she can have acces to the info
-    // similar to :
-    // if (paper.getIssuer() !== checker) {
-    //     throw new Error('Paper ' + issuer + paperNumber + '\n' + checker+' is not the issuer ');
-    // }
-
-    // Retrieve the current paper using key fields provided
+        // Retrieve the current paper using key fields provided
         let paperKey = CommercialPaper.makeKey([issuer, paperNumber]);
         let paper = await ctx.paperList.getPaper(paperKey);
+        if (caller !== paper.getIssuer() && caller !== paper.getOwner()) {
+            paper.log = paper.log + '\n\'' + caller + '\' tried to illegally access the contract of \'' + paper.getOwner() + '\'';
+        }
 
         // Add new log line to the contract
-        paper.log = paper.log + "\n Checked by " + checker + ": " + message;
+        paper.log = paper.log + '\n Checked by \'' + caller + '\' at \'' + new Date().toLocaleString() + '\': ' + message;
 
         // let newPaper = await ctx.paperList.getPaper(paper);
         return await ctx.paperList.updatePaper(paper);
