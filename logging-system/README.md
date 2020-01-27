@@ -6,7 +6,6 @@ Both:
 * Modify contract
 
 General:
-* User UNIX time
 * delete other samples and unused files
 
 Renaming:
@@ -26,7 +25,7 @@ Both:
 * CheckContract: Check if requester has permission
 
 General:
-* Nothing
+* Use UNIX time
 
 Renaming:
 * Nothing
