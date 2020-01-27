@@ -12,4 +12,5 @@
 # omit Go vendor directories
 vendor/
 # Visual studio code
-.vscode/
+**/.vscode/
+**/.idea/
