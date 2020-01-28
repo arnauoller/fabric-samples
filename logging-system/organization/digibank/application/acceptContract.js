@@ -65,7 +65,7 @@ async function main () {
         // Accept contract
         console.log('Submit accept contract transaction.');
 
-        const acceptResponse = await contract.submitTransaction('acceptContract', 'MagnetoCorp', '00001', 'MagnetoCorp', 'DigiBank', '4900000', '2020-05-31');
+        const acceptResponse = await contract.submitTransaction('acceptContract', 'User1@org1.example.com', '00001', userName, '4900000', '2020-05-31');
 
         // process response
         console.log('Process accept contract transaction response.');

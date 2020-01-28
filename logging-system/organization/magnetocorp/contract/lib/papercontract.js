@@ -95,16 +95,16 @@ class CommercialPaperContract extends Contract {
      * @param {Integer} price price paid for this paper
      * @param {String} purchaseDateTime time paper was purchased (i.e. traded)
     */
-    async acceptContract(ctx, issuer, paperNumber, currentOwner, newOwner, price, purchaseDateTime) {
+    async acceptContract(ctx, issuer, paperNumber, newOwner, price, purchaseDateTime) {
 
         // Retrieve the current paper using key fields provided
         let paperKey = CommercialPaper.makeKey([issuer, paperNumber]);
         let paper = await ctx.paperList.getPaper(paperKey);
 
-        // Validate current owner
-        if (paper.getOwner() !== currentOwner) {
-            throw new Error('Paper ' + issuer + paperNumber + ' is not owned by ' + currentOwner);
-        }
+        // // Validate current owner
+        // if (paper.getOwner() !== currentOwner) {
+        //     throw new Error('Paper ' + issuer + paperNumber + ' is not owned by ' + currentOwner);
+        // }
 
         // First acceptContract moves state from ISSUED to TRADING
         if (paper.isIssued()) {
@@ -173,7 +173,7 @@ class CommercialPaperContract extends Contract {
     */
     async checkContract(ctx, issuer, paperNumber, caller, message) {
         if (message === '') {
-            throw new Error('No message was passed. Terminating');
+            throw new Error('No message was passed. You should provide a message. Terminating');
         }
 
         // Retrieve the current paper using key fields provided

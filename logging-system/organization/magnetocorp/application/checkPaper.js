@@ -18,7 +18,7 @@ async function main () {
     try {
 
         // Specify userName for network access
-        const userName = 'hr@org1.example.com';
+        const userName = 'User1@org1.example.com';
 
         // Load connection profile; will be used to locate a gateway
         let connectionProfile = yaml.safeLoad(fs.readFileSync('../gateway/networkConnection.yaml', 'utf8'));
@@ -56,18 +56,18 @@ async function main () {
             return;
         }
         console.log('Submit check transaction.');
-        const checkResponse = await contract.submitTransaction('checkContract', 'MagnetoCorp', '00001', userName, message);
+        const checkResponse = await contract.submitTransaction('checkContract', 'User1@org1.example.com', '00001', userName, message);
 
         // process response
         console.log('Process check transaction response.\n');
 
         let receivedContract = CommercialPaper.fromBuffer(checkResponse);
-        if (!userName.startsWith('hr@')) {
-            if (receivedContract.owner !== userName) {
-                console.log('You are not HR or the owner, therefore you are not allowed to see the contract');
-                return;
-            }
-        }
+        // if (!userName.startsWith('hr@')) {
+        //     if (receivedContract.owner !== userName) {
+        //         console.log('You are not HR or the owner, therefore you are not allowed to see the contract');
+        //         return;
+        //     }
+        // }
 
         console.log('====================');
 

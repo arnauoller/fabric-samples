@@ -15,6 +15,16 @@ Renaming:
 * all chain code references
 * Comments
 * naming of people and organisations inside the wallets
+  
+# Check what I did here Gabriel
+* PROBLEM CheckContract: Check if requester has permission
+  * Was not working -->  as owner it appeared DigiBank but the actual owner was Admin@org1.example.com
+  * WHAT I DID
+    * Instead of putting as issuer DigiBank I put the username of the user creating the contract
+    * I did the same with MagentoCorp
+  * NOT AN OPTIMAL SOLUTION in a real world application (Maybe 2 admins from magentocorp have access)
+    * But I think that for our system is enough
+
 
 # Done
 Employee:
@@ -22,7 +32,7 @@ Employee:
 
 Both:
 * checkContract: Message is required
-* CheckContract: Check if requester has permission
+
 
 General:
 * Use UNIX time
