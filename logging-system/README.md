@@ -15,7 +15,6 @@ Renaming:
 * all chain code references
 * Comments
 * naming of people and organisations inside the wallets
-* terminateContract for redeem everywhere
 
 Readme: put our scenario and our setup + quick start ...
   
@@ -32,6 +31,8 @@ Readme: put our scenario and our setup + quick start ...
 # Done
 Employee:
 * terminateContract
+* Rename terminateContract for redeem everywhere
+
 
 Both:
 * checkContract: Message is required
