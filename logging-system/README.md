@@ -15,6 +15,8 @@ Renaming:
 * all chain code references
 * Comments
 * naming of people and organisations inside the wallets
+
+Readme: put our scenario and our setup + quick start ...
   
 # Check what I did here Gabriel
 * PROBLEM CheckContract: Check if requester has permission
@@ -76,9 +78,7 @@ You are strongly advised to read the full tutorial to get information about the 
 You will need a a machine with the following
 
 - Docker and docker-compose installed
-- Node.js v8 if you want to run Javascript client applications
-- Java v8 if you want to run Java client applications
-- Maven to build the Java applications
+- Node.js v8
 
 It is advised to have 3 console windows open; one to monitor the infrastructure and one each for MagnetoCorp and DigiBank
 
@@ -99,7 +99,7 @@ You can cancel this if you wish to reuse the terminal, but it's best left open.
 
 ### Install and Instantiate the contract
 
-The contract code is available as either JavaScript or Java. You can use either one, and the choice of contract language does not affect the choice of client langauge.
+The contract code is in JavaScript. Although our client language is also in JavaScript the choice of contract language does not affect the choice of client language.
 
 In your 'MagnetoCorp' window run the following command
 
@@ -117,19 +117,14 @@ docker exec cliMagnetoCorp peer chaincode instantiate -n papercontract -v 0 -l n
 
 ## Client Applications
 
-Note for JavaScript applications you will need to install the dependencies first. Use this command in each application directory
+You will need to install the dependencies first. Use this command in each application directory
 
 ```
 npm install
 ```
 
-
->  Note that there is NO dependency between the langauge of any one client application and any contract. Mix and match as you wish!
-
 ### Issue the paper 
 
-This is running as *MagnetoCorp* so you can stay in the same window. These commands are to be run in the 
-`commercial-paper/organization/magnetocorp/application` directory or the `commercial-paper/organization/magnetocorp/application-java`
 
 *Add the Identity to be used*
 
@@ -150,8 +145,8 @@ This is running as *Digibank*; you've not acted as this organization before so i
 
 `./roles/digibank.sh` 
 
-You can now run the applications to buy and redeem the paper. Change to either the 
-`commercial-paper/organization/digibank/application` directory or  `commercial-paper/organization/digibank/application-java`
+You can now run the applications to buy and redeem the paper. Change to the 
+`commercial-paper/organization/digibank/application`
 
 *Add the Identity to be used*
 

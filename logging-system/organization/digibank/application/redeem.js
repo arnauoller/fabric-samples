@@ -4,7 +4,7 @@
 const fs = require('fs');
 const yaml = require('js-yaml');
 const { FileSystemWallet, Gateway } = require('fabric-network');
-const CommercialPaper = require('../contract/lib/paper.js');
+const CommercialPaper = require('../../magnetocorp/contract/lib/paper.js');
 
 // A wallet stores a collection of identities for use
 const wallet = new FileSystemWallet('../identity/user/balaji/wallet');
@@ -50,7 +50,7 @@ async function main() {
         // redeem commercial paper
         console.log('Terminate contract');
 
-        const redeemResponse = await contract.submitTransaction('redeem', 'MagnetoCorp', '00001', 'DigiBank');
+        const redeemResponse = await contract.submitTransaction('redeem', 'User1@org1.example.com', '00001', 'Admin@org1.example.com');
 
         // process response
         console.log('Process terminate contract response.');
