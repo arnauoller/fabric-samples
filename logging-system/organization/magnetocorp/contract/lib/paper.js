@@ -11,7 +11,7 @@ const State = require('./../ledger-api/state.js');
 const cpState = {
     ISSUED: 1,
     TRADING: 2,
-    REDEEMED: 3
+    TERMINATED: 3
 };
 
 /**
@@ -55,8 +55,8 @@ class CommercialPaper extends State {
         this.currentState = cpState.TRADING;
     }
 
-    setRedeemed() {
-        this.currentState = cpState.REDEEMED;
+    setTerminated() {
+        this.currentState = cpState.TERMINATED;
     }
 
     isIssued() {
@@ -67,8 +67,8 @@ class CommercialPaper extends State {
         return this.currentState === cpState.TRADING;
     }
 
-    isRedeemed() {
-        return this.currentState === cpState.REDEEMED;
+    isTerminated() {
+        return this.currentState === cpState.TERMINATED;
     }
 
     static fromBuffer(buffer) {

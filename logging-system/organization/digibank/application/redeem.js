@@ -47,15 +47,15 @@ async function main() {
 
         const contract = await network.getContract('papercontract');
 
-        // redeem commercial paper
+        // terminate contract
         console.log('Terminate contract');
 
-        const redeemResponse = await contract.submitTransaction('redeem', 'User1@org1.example.com', '00001', 'Admin@org1.example.com');
+        const terminateResponse = await contract.submitTransaction('terminateContract', 'User1@org1.example.com', '00001', 'Admin@org1.example.com');
 
         // process response
         console.log('Process terminate contract response.');
 
-        let receivedContract = CommercialPaper.fromBuffer(redeemResponse);
+        let receivedContract = CommercialPaper.fromBuffer(terminateResponse);
 
         console.log('====================');
 
@@ -84,11 +84,11 @@ async function main() {
 }
 main().then(() => {
 
-    console.log('Redeem program complete.');
+    console.log('TerminateContract program complete.');
 
 }).catch((e) => {
 
-    console.log('Redeem program exception.');
+    console.log('TerminateContract program exception.');
     console.log(e);
     console.log(e.stack);
     process.exit(-1);

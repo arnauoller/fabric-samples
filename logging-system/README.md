@@ -15,6 +15,7 @@ Renaming:
 * all chain code references
 * Comments
 * naming of people and organisations inside the wallets
+* terminateContract for redeem everywhere
 
 Readme: put our scenario and our setup + quick start ...
   
@@ -51,7 +52,7 @@ The full tutorial, including full scenario details and line by line code walkthr
 
 In this tutorial two organizations, MagnetoCorp and DigiBank, trade commercial paper with each other using PaperNet, a Hyperledger Fabric blockchain network.
 
-Once you’ve set up a basic network, you’ll act as Isabella, an employee of MagnetoCorp, who will issue a commercial paper on its behalf. You’ll then switch hats to take the role of Balaji, an employee of DigiBank, who will buy this commercial paper, hold it for a period of time, and then redeem it with MagnetoCorp for a small profit.
+Once you’ve set up a basic network, you’ll act as Isabella, an employee of MagnetoCorp, who will issue a commercial paper on its behalf. You’ll then switch hats to take the role of Balaji, an employee of DigiBank, who will buy this commercial paper, hold it for a period of time, and then terminate the contract it with MagnetoCorp for a small profit.
 
 ![](https://hyperledger-fabric.readthedocs.io/en/release-1.4/_images/commercial_paper.diagram.1.png)
 
@@ -71,7 +72,7 @@ You are strongly advised to read the full tutorial to get information about the 
 
    - Issue the Paper as Magnetocorp
    - Buy the paper as DigiBank
-   - Redeem the paper as DigiBank
+   - TerminateContract as DigiBank
 
 ## Setup
 
@@ -138,14 +139,14 @@ node addToWallet.js
 node issue.js
 ```
 
-### Buy and Redeem the paper
+### Accept and terminate the contract
 
 This is running as *Digibank*; you've not acted as this organization before so in your 'Digibank' window run the following command in the 
 `fabric-samples/commercial-paper/` directory
 
 `./roles/digibank.sh` 
 
-You can now run the applications to buy and redeem the paper. Change to the 
+You can now run the applications to accept the contract and terminate the contract Change to the 
 `commercial-paper/organization/digibank/application`
 
 *Add the Identity to be used*
@@ -160,8 +161,8 @@ node addToWallet.js
 node buy.js
 ```
 
-*Redeem*
+*TerminateContract*
 
 ```
-node redeem.js
+node terminateContract.js
 ```

@@ -25,7 +25,7 @@ echo "
  To add identity to the wallet:   node addToWallet.js
     < issue the paper run as Magnetocorp>
  To buy the paper             :   node buy.js
- To redeem the paper          :   node redeem.js
+ To terminateContract the paper          :   node terminateContract.js
 
  Java Client Applications:
 
@@ -33,7 +33,7 @@ echo "
 
     < issue the paper run as Magnetocorp>
  To buy the paper             :   node buy.js
- To redeem the paper          :   node redeem.js
+ To terminateContract the paper          :   node terminateContract.js
 
 "
 echo "Suggest that you change to this dir>  cd ${DIR}/organization/digibank"

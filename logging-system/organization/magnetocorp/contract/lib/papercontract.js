@@ -111,7 +111,7 @@ class CommercialPaperContract extends Contract {
             paper.setTrading();
         }
 
-        // Check paper is not already REDEEMED
+        // Check paper is not already TERMINATED
         if (paper.isTrading()) {
             paper.setOwner(newOwner);
         } else {
@@ -124,36 +124,36 @@ class CommercialPaperContract extends Contract {
     }
 
     /**
-     * Redeem commercial paper
+     * Terminate contract
      *
      * @param {Context} ctx the transaction context
      * @param {String} issuer commercial paper issuer
      * @param {Integer} paperNumber paper number for this issuer
-     * @param {String} redeemingOwner redeeming owner of paper
+     * @param {String} terminatingOwner employee terminating the contract
     */
-    async redeem(ctx, issuer, paperNumber, redeemingOwner) {
+    async terminateContract(ctx, issuer, paperNumber, terminatingOwner) {
         let now = new Date();
         let month = now.getMonth() +1;
 
         if (now.getMonth() < 10) {
             month = '0' + month;
         }
-        let redeemDateTime = now.getFullYear() + '-' + month + '-' + now.getDate() + ' ' + now.getHours() + ':' + now.getMinutes();
+        let terminatingDateTime = now.getFullYear() + '-' + month + '-' + now.getDate() + ' ' + now.getHours() + ':' + now.getMinutes();
 
         let paperKey = CommercialPaper.makeKey([issuer, paperNumber]);
 
         let paper = await ctx.paperList.getPaper(paperKey);
 
-        // Check paper is not REDEEMED
-        if (paper.isRedeemed()) {
+        // Check the contract is not already terminated
+        if (paper.isTerminated()) {
             throw new Error('contract ' + issuer + paperNumber + ' already terminated');
         }
 
-        // Verify that the redeemer owns the commercial paper before redeeming it
-        if (paper.getOwner() === redeemingOwner) {
+        // Verify that the employee owns the contract before terminating it
+        if (paper.getOwner() === terminatingOwner) {
             paper.setOwner(paper.getIssuer());
-            paper.setRedeemed();
-            paper.log = paper.log + '\nTerminated contract at ' + redeemDateTime;
+            paper.setTerminated();
+            paper.log = paper.log + '\nTerminated contract at ' + terminatingDateTime;
         } else {
             throw new Error('Terminating owner does not own contract ' + issuer + paperNumber);
         }
