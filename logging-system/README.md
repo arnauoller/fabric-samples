@@ -11,7 +11,6 @@ General:
 Renaming:
 * Digibank to employee
 * Magnetocorp to employer
-* checkPaper to checkContract
 * all chain code references
 * Comments
 * naming of people and organisations inside the wallets
@@ -28,11 +27,14 @@ Readme: put our scenario and our setup + quick start ...
     * But I think that for our system is enough
 
 
+
 # Done
 Employee:
 * terminateContract
-* Rename terminateContract for redeem everywhere
 
+# Renaming
+* checkPaper to checkContract
+* terminateContract to redeem
 
 Both:
 * checkContract: Message is required
@@ -44,24 +46,16 @@ General:
 Renaming:
 * Nothing
 
-# Commercial Paper Tutorial
+# logging-system
 
-This folder contains the code for an introductory tutorial to Smart Contract development. It is based around the scenario of Commercial Paper.
-The full tutorial, including full scenario details and line by line code walkthroughs is in the [Hyperledger Fabric documentation](https://hyperledger-fabric.readthedocs.io/en/release-1.4/tutorial/commercial_paper.html).
 
 ## Scenario
 
-In this tutorial two organizations, MagnetoCorp and DigiBank, trade commercial paper with each other using PaperNet, a Hyperledger Fabric blockchain network.
+In this implementation 2 organizations: employer and employee each one with 1 member will interact with a contract using loggin-system solution. 
 
-Once you’ve set up a basic network, you’ll act as Isabella, an employee of MagnetoCorp, who will issue a commercial paper on its behalf. You’ll then switch hats to take the role of Balaji, an employee of DigiBank, who will buy this commercial paper, hold it for a period of time, and then terminate the contract it with MagnetoCorp for a small profit.
-
-![](https://hyperledger-fabric.readthedocs.io/en/release-1.4/_images/commercial_paper.diagram.1.png)
+Once you’ve set up a basic network, you’ll act as Isabella, an employer of the company, who will issue a contract for an employee candidate. You’ll then switch hats to take the role of Balaji, an employee of the company, who will accept this contract, hold it for a period of time, in which he and the employer will consult it, and then terminate the contract.
 
 ## Quick Start
-
-You are strongly advised to read the full tutorial to get information about the code and the scenario. Below are the quick start instructions for running the tutorial, but no details on the how or why it works.
-
-### Steps
 
 1) Start the Hyperledger Fabric infrastructure
 
@@ -69,11 +63,12 @@ You are strongly advised to read the full tutorial to get information about the 
 
 2) Install and Instantiate the Contracts
 
-3) Run client applications in the roles of MagnetoCorp and Digibank to trade the commecial paper
+3) Run client applications in the roles of employer and employee to interact with the contract
 
-   - Issue the Paper as Magnetocorp
-   - Buy the paper as DigiBank
-   - TerminateContract as DigiBank
+   - Issue the contract as an employer
+   - Accept the contract as an employee
+   - CheckContract as employee and employer
+   - TerminateContract as an employee
 
 ## Setup
 
@@ -82,16 +77,17 @@ You will need a a machine with the following
 - Docker and docker-compose installed
 - Node.js v8
 
-It is advised to have 3 console windows open; one to monitor the infrastructure and one each for MagnetoCorp and DigiBank
+It is advised to have 3 console windows open; one to monitor the infrastructure and one each for employer and employee
 
-If you haven't already clone the repository to a directory of your choice, and change to the `commercial-paper` directory
+change to the `logging-system` directory
 
 ```
+//TODO: change this
 git clone https://github.com/hyperledger/fabric-samples.git
 cd fabric-samples/commercial-paper
 ```
 
-This `README.md` file is in the the `commercial-paper` directory, the source code for client applications and the contracts ins in the `ogranization` directory, and some helper scripts are in the `roles` directory.
+This `README.md` file is in the the `logging-system` directory, the source code for client applications and the contracts ins in the `ogranization` directory, and some helper scripts are in the `roles` directory.
 
 ## Running the Infrastructure
 
@@ -103,14 +99,15 @@ You can cancel this if you wish to reuse the terminal, but it's best left open.
 
 The contract code is in JavaScript. Although our client language is also in JavaScript the choice of contract language does not affect the choice of client language.
 
-In your 'MagnetoCorp' window run the following command
-
+In your 'employer' window run the following command
+//TODO:
 `./roles/magnetocorp.sh`
 
 This will start a docker container for Fabric CLI commands, and put you in the correct directory for the source code. 
 
 **For a JavaScript Contract:**
 
+//TODO: maybe change papercontract name for just paper contract
 ```
 docker exec cliMagnetoCorp peer chaincode install -n papercontract -v 0 -p /opt/gopath/src/github.com/contract -l node
 
@@ -142,13 +139,14 @@ node issue.js
 
 ### Accept and terminate the contract
 
-This is running as *Digibank*; you've not acted as this organization before so in your 'Digibank' window run the following command in the 
+This is running as *Employer*; you've not acted as this organization before so in your 'Employer' window run the following command in the 
 `fabric-samples/commercial-paper/` directory
-
+//TODO: change this
 `./roles/digibank.sh` 
 
-You can now run the applications to accept the contract and terminate the contract Change to the 
-`commercial-paper/organization/digibank/application`
+You can now run the applications to accept the contract and terminate the contract
+//TODO: change this
+Change to the `commercial-paper/organization/digibank/application`
 
 *Add the Identity to be used*
 

@@ -73,7 +73,6 @@ async function main() {
         let paper = CommercialPaper.fromBuffer(issueResponse);
 
         //console.log(`${paper.issuer} commercial paper : ${paper.paperNumber} successfully issued for value ${paper.caraValor}`);
-        // TODO: change job offer for contract in real code, to not mess with the meanings of contract in this sample context
         console.log(`${paper.issuer} employer job offer succesfully issued \n`);
 
         console.log(`Salary:${paper.salary} \nAge:${paper.age}\nSex:${paper.sex}\n\n`);

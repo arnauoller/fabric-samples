@@ -1,14 +1,13 @@
 'use strict';
-// TODO: would be good to change name of this file (and the other with same name) for checkContract
+
 // Bring key classes into scope, most importantly Fabric SDK network class
 const fs = require('fs');
 const yaml = require('js-yaml');
 const { FileSystemWallet, Gateway } = require('fabric-network');
-const CommercialPaper = require('../contract/lib/paper.js');
+const CommercialPaper = require('../../magnetocorp/contract/lib/paper.js');
 
 // A wallet stores a collection of identities for use
-const wallet = new FileSystemWallet('../identity/user/isabella/wallet');
-
+const wallet = new FileSystemWallet('../identity/user/balaji/wallet');
 // Main program function
 async function main () {
     // A gateway defines the peers used to access Fabric networks
@@ -18,7 +17,7 @@ async function main () {
     try {
 
         // Specify userName for network access
-        const userName = 'User1@org1.example.com';
+        const userName = 'Admin@org1.example.com';
 
         // Load connection profile; will be used to locate a gateway
         let connectionProfile = yaml.safeLoad(fs.readFileSync('../gateway/networkConnection.yaml', 'utf8'));
@@ -40,13 +39,12 @@ async function main () {
 
         const network = await gateway.getNetwork('mychannel');
 
-        // TODO: change these 2 lines
         // Get addressability to commercial paper contract
         console.log('Use org.papernet.commercialpaper smart contract.');
 
         const contract = await network.getContract('papercontract');
 
-        // Check contract
+        // Check commercial paper
         let message = '';
         let args = process.argv.slice(2);
         if(args[0]){
@@ -80,6 +78,7 @@ async function main () {
         console.log(`Request log: \n\t${receivedContract.log}`);
 
         console.log('====================');
+
     } catch (error) {
 
         console.log(`Error processing transaction. ${error}`);
