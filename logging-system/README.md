@@ -19,9 +19,9 @@ Readme: put our scenario and our setup + quick start ...
   
 # Check what I did here Gabriel
 * PROBLEM CheckContract: Check if requester has permission
-  * Was not working -->  as owner it appeared DigiBank but the actual owner was Admin@org1.example.com
+  * Was not working -->  as owner it appeared employee but the actual owner was Admin@org1.example.com
   * WHAT I DID
-    * Instead of putting as issuer DigiBank I put the username of the user creating the contract
+    * Instead of putting as issuer employee I put the username of the user creating the contract
     * I did the same with MagentoCorp
   * NOT AN OPTIMAL SOLUTION in a real world application (Maybe 2 admins from magentocorp have access)
     * But I think that for our system is enough
@@ -59,7 +59,7 @@ Once you’ve set up a basic network, you’ll act as Isabella, an employer of t
 
 1) Start the Hyperledger Fabric infrastructure
 
-   _although the scenario has two organizations, the 'basic' or 'developement' Fabric infrastructure will be used_
+   _although the scenario has two organizations, the 'basic' Fabric infrastructure will be used_
 
 2) Install and Instantiate the Contracts
 
@@ -146,7 +146,7 @@ This is running as *Employer*; you've not acted as this organization before so i
 
 You can now run the applications to accept the contract and terminate the contract
 //TODO: change this
-Change to the `commercial-paper/organization/digibank/application`
+Change to the `commercial-paper/organization/employee/application`
 
 *Add the Identity to be used*
 
