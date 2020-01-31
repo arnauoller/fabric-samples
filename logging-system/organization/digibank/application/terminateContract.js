@@ -4,22 +4,19 @@
 const fs = require('fs');
 const yaml = require('js-yaml');
 const { FileSystemWallet, Gateway } = require('fabric-network');
-const CommercialPaper = require('../../magnetocorp/contract/lib/paper.js');
+const DigiContract = require('../../magnetocorp/contract/lib/paper.js');
 
 // A wallet stores a collection of identities for use
 const wallet = new FileSystemWallet('../identity/user/balaji/wallet');
 
-// Main program function
 async function main() {
 
     // A gateway defines the peers used to access Fabric networks
     const gateway = new Gateway();
 
-    // Main try/catch block
     try {
 
         // Specify userName for network access
-        // const userName = 'isabella.issuer@magnetocorp.com';
         const userName = 'Admin@org1.example.com';
 
         // Load connection profile; will be used to locate a gateway
@@ -37,12 +34,13 @@ async function main() {
 
         await gateway.connect(connectionProfile, connectionOptions);
 
-        // Access PaperNet network
+        // Access logging network
         console.log('Use network channel: mychannel.');
 
         const network = await gateway.getNetwork('mychannel');
 
-        // Get addressability to commercial paper contract
+        // Get addressability to contract
+        //TODO: change this below
         console.log('Use org.papernet.commercialpaper smart contract.');
 
         const contract = await network.getContract('papercontract');
@@ -55,7 +53,7 @@ async function main() {
         // process response
         console.log('Process terminate contract response.');
 
-        let receivedContract = CommercialPaper.fromBuffer(terminateResponse);
+        let receivedContract = DigiContract.fromBuffer(terminateResponse);
 
         console.log('====================');
 

@@ -16,7 +16,6 @@ const wallet = new FileSystemWallet('../identity/user/isabella/wallet');
 
 async function main() {
 
-    // Main try/catch block
     try {
 
         // Identity to credentials to be stored in the wallet

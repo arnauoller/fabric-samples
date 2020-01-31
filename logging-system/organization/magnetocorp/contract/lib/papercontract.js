@@ -8,7 +8,7 @@ SPDX-License-Identifier: Apache-2.0
 const { Contract, Context } = require('fabric-contract-api');
 
 // PaperNet specifc classes
-const CommercialPaper = require('./paper.js');
+const DigiContract = require('./paper.js');
 const PaperList = require('./paperlist.js');
 
 /**
@@ -69,7 +69,7 @@ class CommercialPaperContract extends Contract {
         let logMessage = 'issued by' + issuer + 'at time:' + issueDateTime;
         let log = [logMessage];
         // create an instance of the paper
-        let paper = CommercialPaper.createInstance(issuer, paperNumber, issueDateTime, maturityDateTime, salary, age, sex, log);
+        let paper = DigiContract.createInstance(issuer, paperNumber, issueDateTime, maturityDateTime, salary, age, sex, log);
 
         // Smart contract, rather than paper, moves paper into ISSUED state
         paper.setIssued();
@@ -98,7 +98,7 @@ class CommercialPaperContract extends Contract {
     async acceptContract(ctx, issuer, paperNumber, newOwner, price, purchaseDateTime) {
 
         // Retrieve the current paper using key fields provided
-        let paperKey = CommercialPaper.makeKey([issuer, paperNumber]);
+        let paperKey = DigiContract.makeKey([issuer, paperNumber]);
         let paper = await ctx.paperList.getPaper(paperKey);
 
         // // Validate current owner
@@ -140,7 +140,7 @@ class CommercialPaperContract extends Contract {
         }
         let terminatingDateTime = now.getFullYear() + '-' + month + '-' + now.getDate() + ' ' + now.getHours() + ':' + now.getMinutes();
 
-        let paperKey = CommercialPaper.makeKey([issuer, paperNumber]);
+        let paperKey = DigiContract.makeKey([issuer, paperNumber]);
 
         let paper = await ctx.paperList.getPaper(paperKey);
 
@@ -177,7 +177,7 @@ class CommercialPaperContract extends Contract {
         }
 
         // Retrieve the current paper using key fields provided
-        let paperKey = CommercialPaper.makeKey([issuer, paperNumber]);
+        let paperKey = DigiContract.makeKey([issuer, paperNumber]);
         let paper = await ctx.paperList.getPaper(paperKey);
         if (caller !== paper.getIssuer() && caller !== paper.getOwner()) {
             paper.log = paper.log + '\n\'' + caller + '\' tried to illegally access the contract of \'' + paper.getOwner() + '\'';

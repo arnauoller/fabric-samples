@@ -18,10 +18,10 @@ const cpState = {
  * CommercialPaper class extends State class
  * Class will be used by application and smart contract to define a paper
  */
-class CommercialPaper extends State {
+class DigiContract extends State {
 
     constructor(obj) {
-        super(CommercialPaper.getClass(), [obj.issuer, obj.paperNumber]);
+        super(DigiContract.getClass(), [obj.issuer, obj.paperNumber]);
         Object.assign(this, obj);
     }
 
@@ -72,7 +72,7 @@ class CommercialPaper extends State {
     }
 
     static fromBuffer(buffer) {
-        return CommercialPaper.deserialize(buffer);
+        return DigiContract.deserialize(buffer);
     }
 
     toBuffer() {
@@ -84,14 +84,14 @@ class CommercialPaper extends State {
      * @param {Buffer} data to form back into the object
      */
     static deserialize(data) {
-        return State.deserializeClass(data, CommercialPaper);
+        return State.deserializeClass(data, DigiContract);
     }
 
     /**
      * Factory method to create a commercial paper object
      */
     static createInstance(issuer, paperNumber, issueDateTime, maturityDateTime, salary, age, sex, log) {
-        return new CommercialPaper({ issuer, paperNumber, issueDateTime, maturityDateTime, salary, age, sex, log });
+        return new DigiContract({ issuer, paperNumber, issueDateTime, maturityDateTime, salary, age, sex, log });
     }
 
     static getClass() {
@@ -99,4 +99,4 @@ class CommercialPaper extends State {
     }
 }
 
-module.exports = CommercialPaper;
+module.exports = DigiContract;

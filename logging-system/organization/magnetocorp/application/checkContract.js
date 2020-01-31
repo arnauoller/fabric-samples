@@ -3,17 +3,15 @@
 const fs = require('fs');
 const yaml = require('js-yaml');
 const { FileSystemWallet, Gateway } = require('fabric-network');
-const CommercialPaper = require('../contract/lib/paper.js');
+const DigiContract = require('../contract/lib/paper.js');
 
 // A wallet stores a collection of identities for use
 const wallet = new FileSystemWallet('../identity/user/isabella/wallet');
 
-// Main program function
 async function main () {
     // A gateway defines the peers used to access Fabric networks
     const gateway = new Gateway();
 
-    // Main try/catch block
     try {
 
         // Specify userName for network access
@@ -59,13 +57,7 @@ async function main () {
         // process response
         console.log('Process check transaction response.\n');
 
-        let receivedContract = CommercialPaper.fromBuffer(checkResponse);
-        // if (!userName.startsWith('hr@')) {
-        //     if (receivedContract.owner !== userName) {
-        //         console.log('You are not HR or the owner, therefore you are not allowed to see the contract');
-        //         return;
-        //     }
-        // }
+        let receivedContract = DigiContract.fromBuffer(checkResponse);
 
         console.log('====================');
 

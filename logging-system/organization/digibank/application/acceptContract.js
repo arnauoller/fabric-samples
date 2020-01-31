@@ -6,7 +6,7 @@ SPDX-License-Identifier: Apache-2.0
  * This application has 6 basic steps:
  * 1. Select an identity from a wallet
  * 2. Connect to network gateway
- * 3. Access PaperNet network
+ * 3. Access logging-system network
  * 4. Construct request to accept contract
  * 5. Submit transaction
  * 6. Process response
@@ -18,7 +18,7 @@ SPDX-License-Identifier: Apache-2.0
 const fs = require('fs');
 const yaml = require('js-yaml');
 const { FileSystemWallet, Gateway } = require('fabric-network');
-const CommercialPaper = require('../../magnetocorp/contract/lib/paper.js');
+const DigiContract = require('../../magnetocorp/contract/lib/paper.js');
 
 // A wallet stores a collection of identities for use
 const wallet = new FileSystemWallet('../identity/user/balaji/wallet');
@@ -29,11 +29,9 @@ async function main () {
     // A gateway defines the peers used to access Fabric networks
     const gateway = new Gateway();
 
-    // Main try/catch block
     try {
 
         // Specify userName for network access
-        // const userName = 'isabella.issuer@magnetocorp.com';
         const userName = 'Admin@org1.example.com';
 
         // Load connection profile; will be used to locate a gateway
@@ -52,11 +50,12 @@ async function main () {
 
         await gateway.connect(connectionProfile, connectionOptions);
 
-        // Access PaperNet network
+        // Access logging-system network
         console.log('Use network channel: mychannel.');
 
         const network = await gateway.getNetwork('mychannel');
 
+        //TODO: change the naming
         // Get addressability to commercial paper contract
         console.log('Use org.papernet.commercialpaper smart contract.');
 
@@ -70,7 +69,7 @@ async function main () {
         // process response
         console.log('Process accept contract transaction response.');
 
-        let paper = CommercialPaper.fromBuffer(acceptResponse);
+        let paper = DigiContract.fromBuffer(acceptResponse);
 
         console.log(`${paper.issuer} offered contract : ${paper.paperNumber} successfully accepted by ${paper.owner}`);
         console.log('Transaction complete.');

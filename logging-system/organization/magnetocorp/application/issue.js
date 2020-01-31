@@ -6,7 +6,7 @@ SPDX-License-Identifier: Apache-2.0
  * This application has 6 basic steps:
  * 1. Select an identity from a wallet
  * 2. Connect to network gateway
- * 3. Access PaperNet network
+ * 3. Access logging network
  * 4. Construct request to issue commercial paper
  * 5. Submit transaction
  * 6. Process response
@@ -18,19 +18,17 @@ SPDX-License-Identifier: Apache-2.0
 const fs = require('fs');
 const yaml = require('js-yaml');
 const { FileSystemWallet, Gateway } = require('fabric-network');
-const CommercialPaper = require('../contract/lib/paper.js');
+const DigiContract = require('../contract/lib/paper.js');
 
 // A wallet stores a collection of identities for use
 //const wallet = new FileSystemWallet('../user/isabella/wallet');
 const wallet = new FileSystemWallet('../identity/user/isabella/wallet');
 
-// Main program function
 async function main() {
 
     // A gateway defines the peers used to access Fabric networks
     const gateway = new Gateway();
 
-    // Main try/catch block
     try {
 
         // Specify userName for network access
@@ -57,7 +55,7 @@ async function main() {
 
         const network = await gateway.getNetwork('mychannel');
 
-        // Get addressability to commercial paper contract
+        // Get addressability to contract
         console.log('Use org.papernet.commercialpaper smart contract.');
 
         const contract = await network.getContract('papercontract');
@@ -70,9 +68,8 @@ async function main() {
         // process response
         console.log('Process issue transaction response.\n'+issueResponse+"\n");
 
-        let paper = CommercialPaper.fromBuffer(issueResponse);
+        let paper = DigiContract.fromBuffer(issueResponse);
 
-        //console.log(`${paper.issuer} commercial paper : ${paper.paperNumber} successfully issued for value ${paper.caraValor}`);
         console.log(`${paper.issuer} employer job offer succesfully issued \n`);
 
         console.log(`Salary:${paper.salary} \nAge:${paper.age}\nSex:${paper.sex}\n\n`);
