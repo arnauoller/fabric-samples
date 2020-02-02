@@ -57,7 +57,6 @@ In your 'employer' window run the following command
 
 This will start a docker container for Fabric CLI commands, and put you in the correct directory for the source code. 
 
-**TODO**: maybe change papercontract name for just paper contract
 ```
 docker exec cliMagnetoCorp peer chaincode install -n papercontract -v 0 -p /opt/gopath/src/github.com/contract -l node
 
