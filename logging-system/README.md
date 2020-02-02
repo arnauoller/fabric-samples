@@ -9,10 +9,6 @@ an employee candidate. You’ll then switch hats to take the role of Balaji, a f
 accept this contract, hold it for a period of time, and then terminate it. During the time that the contract is held,
 both parties can view the contract.
 
-## Limitations
-Unfortunately we weren't able to rename the organisations. DigiBank is representing the employee, MagnetoCorp the
-employer. 
-
 ## Quick Start
 
 1. Start the Hyperledger Fabric infrastructure
