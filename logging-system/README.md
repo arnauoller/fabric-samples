@@ -53,7 +53,7 @@ The contract code is written in JavaScript. Although our client language is also
 language does not affect the choice of client language.
 
 In your 'employer' window run the following command
-`./roles/magentocorp.sh`
+`./roles/employer.sh`
 
 This will start a docker container for Fabric CLI commands, and put you in the correct directory for the source code. 
 
@@ -74,6 +74,8 @@ npm install
 ### Issue the Contract 
 This is running as *Employer*
 
+Inside the application directory
+
 *Add the Identity to be used*
 
 ```
@@ -92,12 +94,11 @@ node issue.js
 node checkContract.js
 ```
 ### Accept and terminate the contract
-This is running as *Employee*; you've not acted as this organization before so in your 'Employee' window run the
-following command in the 
-`logging-system/` directory `./roles/digibank.sh` 
+This is running as *Employee*;
+
+Change to the `logging-system/organization/employee/application` folder
 
 You can now run the applications to accept the contract and terminate the contract
-Change to the `logging-system/organization/digibank/application` folder
 
 *Add the Identity to be used*
 
@@ -111,14 +112,15 @@ node addToWallet.js
 node acceptContract.js
 ```
 
+*View the contract*
+
+```
+node checkContract.js
+```
+
 *TerminateContract*
 
 ```
 node terminateContract.js
 ```
 
-*View the contract*
-
-```
-node checkContract.js
-```
