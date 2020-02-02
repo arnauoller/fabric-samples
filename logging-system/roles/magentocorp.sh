@@ -10,7 +10,7 @@ function _exit(){
 # Where am I?
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
-cd "${DIR}/organization/magnetocorp/configuration/cli"
+cd "${DIR}/organization/employer/configuration/cli"
 docker-compose -f docker-compose.yml up -d cliMagnetoCorp
 
 echo "

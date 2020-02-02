@@ -55,4 +55,4 @@ docker kill cliDigiBank cliMagnetoCorp logspout || true
 #
 #
 #
-"${DIR}/organization/magnetocorp/configuration/cli/monitordocker.sh" net_basic
+"${DIR}/organization/employer/configuration/cli/monitordocker.sh" net_basic
