@@ -18,7 +18,7 @@ SPDX-License-Identifier: Apache-2.0
 const fs = require('fs');
 const yaml = require('js-yaml');
 const { FileSystemWallet, Gateway } = require('fabric-network');
-const DigiContract = require('../../magnetocorp/contract/lib/paper.js');
+const DigiContract = require('../../employer/contract/lib/paper.js');
 
 // A wallet stores a collection of identities for use
 const wallet = new FileSystemWallet('../identity/user/balaji/wallet');
