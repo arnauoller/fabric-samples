@@ -1,19 +1,34 @@
+/*
+SPDX-License-Identifier: Apache-2.0
+*/
+
+/*
+ * This application has 6 basic steps:
+ * 1. Select an identity from a wallet
+ * 2. Connect to network gateway
+ * 3. Access logging-system network
+ * 4. Construct request to accept contract
+ * 5. Submit transaction
+ * 6. Process response
+ */
+
 'use strict';
 
 // Bring key classes into scope, most importantly Fabric SDK network class
 const fs = require('fs');
 const yaml = require('js-yaml');
 const { FileSystemWallet, Gateway } = require('fabric-network');
-const DigiContract = require('../../magnetocorp/contract/lib/paper.js');
+const DigiContract = require('../../employer/contract/lib/paper.js');
 
 // A wallet stores a collection of identities for use
 const wallet = new FileSystemWallet('../identity/user/balaji/wallet');
 
+// Main program function
 async function main () {
+
     // A gateway defines the peers used to access Fabric networks
     const gateway = new Gateway();
 
-    // Main try/catch block
     try {
 
         // Specify userName for network access
@@ -27,6 +42,7 @@ async function main () {
             identity: userName,
             wallet: wallet,
             discovery: { enabled: false, asLocalhost: true }
+
         };
 
         // Connect to gateway using application specified parameters
@@ -34,44 +50,29 @@ async function main () {
 
         await gateway.connect(connectionProfile, connectionOptions);
 
-        // Access logging network
+        // Access logging-system network
         console.log('Use network channel: mychannel.');
 
         const network = await gateway.getNetwork('mychannel');
 
+        //TODO: change the naming
         // Get addressability to commercial paper contract
         console.log('Use org.papernet.commercialpaper smart contract.');
 
-        const contract = await network.getContract('papercontract');
+        const contract = await network.getContract('papercontract', 'org.papernet.commercialpaper');
 
-        // Check contract
-        let message = '';
-        let args = process.argv.slice(2);
-        if(args[0]){
-            message = args[0];
-        } else {
-            console.log('No message was passed\nTerminating');
-            return;
-        }
-        console.log('Submit check transaction.');
-        const checkResponse = await contract.submitTransaction('checkContract', 'User1@org1.example.com', '00001', userName, message);
+        // Accept contract
+        console.log('Submit accept contract transaction.');
+
+        const acceptResponse = await contract.submitTransaction('acceptContract', 'User1@org1.example.com', '00001', userName, '4900000', '2020-05-31');
 
         // process response
-        console.log('Process check transaction response.\n');
+        console.log('Process accept contract transaction response.');
 
-        let receivedContract = DigiContract.fromBuffer(checkResponse);
+        let paper = DigiContract.fromBuffer(acceptResponse);
 
-        console.log('====================');
-
-        console.log(`Contract number:${receivedContract.paperNumber}`);
-        console.log(`Issuer: ${receivedContract.issuer}\n`);
-        console.log(`Issue date: ${receivedContract.issueDateTime}`);
-        console.log(`Employee salary: ${receivedContract.salary}`);
-        console.log(`Employee age: ${receivedContract.age}`);
-        console.log(`Employee sex: ${receivedContract.sex}`);
-        console.log(`Request log: \n\t${receivedContract.log}`);
-
-        console.log('====================');
+        console.log(`${paper.issuer} offered contract : ${paper.paperNumber} successfully accepted by ${paper.owner}`);
+        console.log('Transaction complete.');
 
     } catch (error) {
 
@@ -88,11 +89,11 @@ async function main () {
 }
 main().then(() => {
 
-    console.log('CheckContract program complete.');
+    console.log('Accept program complete.');
 
 }).catch((e) => {
 
-    console.log('CheckContract program exception.');
+    console.log('Accept program exception.');
     console.log(e);
     console.log(e.stack);
     process.exit(-1);

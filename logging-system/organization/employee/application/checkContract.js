@@ -4,16 +4,16 @@
 const fs = require('fs');
 const yaml = require('js-yaml');
 const { FileSystemWallet, Gateway } = require('fabric-network');
-const DigiContract = require('../../magnetocorp/contract/lib/paper.js');
+const DigiContract = require('../../employer/contract/lib/paper.js');
 
 // A wallet stores a collection of identities for use
 const wallet = new FileSystemWallet('../identity/user/balaji/wallet');
 
-async function main() {
-
+async function main () {
     // A gateway defines the peers used to access Fabric networks
     const gateway = new Gateway();
 
+    // Main try/catch block
     try {
 
         // Specify userName for network access
@@ -26,7 +26,7 @@ async function main() {
         let connectionOptions = {
             identity: userName,
             wallet: wallet,
-            discovery: { enabled:false, asLocalhost: true }
+            discovery: { enabled: false, asLocalhost: true }
         };
 
         // Connect to gateway using application specified parameters
@@ -39,21 +39,27 @@ async function main() {
 
         const network = await gateway.getNetwork('mychannel');
 
-        // Get addressability to contract
-        //TODO: change this below
+        // Get addressability to commercial paper contract
         console.log('Use org.papernet.commercialpaper smart contract.');
 
         const contract = await network.getContract('papercontract');
 
-        // terminate contract
-        console.log('Terminate contract');
-
-        const terminateResponse = await contract.submitTransaction('terminateContract', 'User1@org1.example.com', '00001', 'Admin@org1.example.com');
+        // Check contract
+        let message = '';
+        let args = process.argv.slice(2);
+        if(args[0]){
+            message = args[0];
+        } else {
+            console.log('No message was passed\nTerminating');
+            return;
+        }
+        console.log('Submit check transaction.');
+        const checkResponse = await contract.submitTransaction('checkContract', 'User1@org1.example.com', '00001', userName, message);
 
         // process response
-        console.log('Process terminate contract response.');
+        console.log('Process check transaction response.\n');
 
-        let receivedContract = DigiContract.fromBuffer(terminateResponse);
+        let receivedContract = DigiContract.fromBuffer(checkResponse);
 
         console.log('====================');
 
@@ -82,11 +88,11 @@ async function main() {
 }
 main().then(() => {
 
-    console.log('TerminateContract program complete.');
+    console.log('CheckContract program complete.');
 
 }).catch((e) => {
 
-    console.log('TerminateContract program exception.');
+    console.log('CheckContract program exception.');
     console.log(e);
     console.log(e.stack);
     process.exit(-1);
