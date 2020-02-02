@@ -9,15 +9,19 @@ an employee candidate. You’ll then switch hats to take the role of Balaji, a f
 accept this contract, hold it for a period of time, and then terminate it. During the time that the contract is held,
 both parties can view the contract.
 
+## Limitations
+Unfortunately we weren't able to rename the organisations. DigiBank is representing the employee, MagnetoCorp the
+employer. 
+
 ## Quick Start
 
-1) Start the Hyperledger Fabric infrastructure
+1. Start the Hyperledger Fabric infrastructure
 
    _although the scenario has two organizations, the 'basic' Fabric infrastructure will be used_
 
-2) Install and instantiate the Contracts
+2. Install and instantiate the Contracts
 
-3) Run client applications in the roles of employer and employee to interact with the contract
+3. Run client applications in the roles of employer and employee to interact with the contract
 
    - Issue the contract as an employer
    - Accept the contract as an employee
@@ -49,7 +53,7 @@ The contract code is written in JavaScript. Although our client language is also
 language does not affect the choice of client language.
 
 In your 'employer' window run the following command
-`./roles/employer.sh`
+`./roles/magentocorp.sh`
 
 This will start a docker container for Fabric CLI commands, and put you in the correct directory for the source code. 
 
@@ -91,10 +95,10 @@ node checkContract.js
 ### Accept and terminate the contract
 This is running as *Employee*; you've not acted as this organization before so in your 'Employee' window run the
 following command in the 
-`logging-system/` directory `./roles/employee.sh` 
+`logging-system/` directory `./roles/digibank.sh` 
 
 You can now run the applications to accept the contract and terminate the contract
-Change to the `logging-system/organization/employee/application` folder
+Change to the `logging-system/organization/digibank/application` folder
 
 *Add the Identity to be used*
 
